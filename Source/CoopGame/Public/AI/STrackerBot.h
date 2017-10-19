@@ -48,6 +48,19 @@ protected:
 	// Dynamic material to pulse on damage
 	UMaterialInstanceDynamic* MatInst;
 
+	void SelfDestruct();
+
+	UPROPERTY(EditDefaultsOnly, Category = "TrackerBot")
+	UParticleSystem* ExplosionEffect;
+
+	bool bExploded;
+
+	UPROPERTY(EditDefaultsOnly, Category = "TrackerBot")
+	float ExplosionRadius;
+
+	UPROPERTY(EditDefaultsOnly, Category = "TrackerBot")
+	float ExplosionDamage;
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
