@@ -1,8 +1,8 @@
-# Coop "Horde-mode" Shooter
-C++ Coop Horde Third-person Shooter for Unreal Engine 4.
+# Third-person Multiplayer "Horde-mode" Shooter
+C++ Coop Third-person Shooter in Unreal Engine 4.
 
-Project Source for the Udemy Course <URL>.
+This repository is the project Source for the Udemy Course 'Unreal Engine 4 Mastery: Create Multiplayer Games with C++'.
 
-Made in Unreal Engine 4.17
+**Made in Unreal Engine 4.17**
 
-(Content in this project may only be used in Unreal Engine projects)
+(Content in this project may only be used in Unreal Engine projects as per the Unreal Engine EULA)
