@@ -1,8 +1,10 @@
 # C++ Multiplayer Third-person Shooter in Unreal Engine 4.
 
+**Looking for a step by step guide?** I released my **[Unreal Engine 4 Mastery: Create Multiplayer Games with C++](https://www.udemy.com/unrealengine-cpp/?couponCode=TLGH14)!** Which includes two games teaching you C++, Networking for multiplayer and multiple AI including advanced behavior trees for ranged shooter AI.
+
 Contains the project Source for the Udemy Course 'Unreal Engine 4 Mastery: Create Multiplayer Games with C++'.
 
-Get the Udemy Course now and learn C++ for Unreal Engine 4: <UDEMY URL>
+Get the Udemy Course now and learn C++ for Unreal Engine 4: [DISCOUNT LINK](https://www.udemy.com/unrealengine-cpp/?couponCode=TLGH14)
 
 **Created with Unreal Engine 4.17**
 
@@ -20,6 +22,6 @@ Features
 	- Custom ActorCompont for Health in any Actor like AI, Player, Explosive Barrel etc.
 	- UMG UI
 
-Udemy Course Link: <UDEMY URL>
+Udemy Course Link: [DISCOUNT LINK](https://www.udemy.com/unrealengine-cpp/?couponCode=TLGH14)
 
 (Content in this project may only be used in Unreal Engine projects as per the Unreal Engine EULA)
