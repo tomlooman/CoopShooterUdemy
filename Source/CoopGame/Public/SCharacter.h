@@ -24,6 +24,8 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
+
 	void MoveForward(float Value);
 
 	void MoveRight(float Value);
@@ -56,6 +58,9 @@ protected:
 
 	void EndZoom();
 
+	UFUNCTION(BlueprintCallable, Category = "Player")
+	FRotator GetAimOffset() const;
+
 	UPROPERTY(Replicated)
 	ASWeapon* CurrentWeapon;
 
@@ -71,6 +76,9 @@ protected:
 	/* Pawn died previously */
 	UPROPERTY(Replicated, BlueprintReadOnly, Category = "Player")
 	bool bDied;
+
+	UFUNCTION(BlueprintImplementableEvent, Category = "Player")
+	void OnDeath(const class UDamageType* DamageType, class AController* InstigatedBy, AActor* DamageCauser);
 
 public:	
 	// Called every frame

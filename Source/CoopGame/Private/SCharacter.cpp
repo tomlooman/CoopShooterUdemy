@@ -61,6 +61,17 @@ void ASCharacter::BeginPlay()
 }
 
 
+void ASCharacter::EndPlay(const EEndPlayReason::Type EndPlayReason)
+{
+	Super::EndPlay(EndPlayReason);
+
+	if (CurrentWeapon)
+	{
+		CurrentWeapon->Destroy();
+	}
+}
+
+
 void ASCharacter::MoveForward(float Value)
 {
 	AddMovementInput(GetActorForwardVector() * Value);
@@ -97,6 +108,16 @@ void ASCharacter::EndZoom()
 }
 
 
+FRotator ASCharacter::GetAimOffset() const
+{
+	const FVector AimDirWS = GetBaseAimRotation().Vector();
+	const FVector AimDirLS = ActorToWorld().InverseTransformVectorNoScale(AimDirWS);
+	const FRotator AimRotLS = AimDirLS.Rotation();
+
+	return AimRotLS;
+}
+
+
 void ASCharacter::StartFire()
 {
 	if (CurrentWeapon)
@@ -122,6 +143,10 @@ void ASCharacter::OnHealthChanged(USHealthComponent* OwningHealthComp, float Hea
 	{
 		// Die!
 		bDied = true;
+
+		OnDeath(DamageType, InstigatedBy, DamageCauser);
+
+		StopFire();
 
 		GetMovementComponent()->StopMovementImmediately();
 		GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
