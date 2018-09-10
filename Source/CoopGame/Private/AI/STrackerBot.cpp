@@ -3,9 +3,9 @@
 #include "STrackerBot.h"
 #include "Components/StaticMeshComponent.h"
 #include "Kismet/GameplayStatics.h"
-#include "AI/Navigation/NavigationSystem.h"
+#include "NavigationSystem/Public/NavigationSystem.h"
 #include "GameFramework/Character.h"
-#include "AI/Navigation/NavigationPath.h"
+#include "NavigationSystem/Public/NavigationPath.h"
 #include "DrawDebugHelpers.h"
 #include "SHealthComponent.h"
 #include "SCharacter.h"
@@ -116,7 +116,7 @@ FVector ASTrackerBot::GetNextPathPoint()
 
 	if (BestTarget)
 	{
-		UNavigationPath* NavPath = UNavigationSystem::FindPathToActorSynchronously(this, GetActorLocation(), BestTarget);
+		UNavigationPath* NavPath = UNavigationSystemV1::FindPathToActorSynchronously(this, GetActorLocation(), BestTarget);
 
 		GetWorldTimerManager().ClearTimer(TimerHandle_RefreshPath);
 		GetWorldTimerManager().SetTimer(TimerHandle_RefreshPath, this, &ASTrackerBot::RefreshPath , 5.0f, false);
