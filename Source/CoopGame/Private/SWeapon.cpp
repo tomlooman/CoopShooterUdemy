@@ -26,7 +26,7 @@ ASWeapon::ASWeapon()
 	RootComponent = MeshComp;
 
 	MuzzleSocketName = "MuzzleSocket";
-	TracerTargetName = "Target";
+	TracerTargetName = "BeamEnd";
 
 	BaseDamage = 20.0f;
 	BulletSpread = 2.0f;
