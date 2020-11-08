@@ -149,6 +149,7 @@ void ASTrackerBot::SelfDestruct()
 
 	MeshComp->SetVisibility(false, true);
 	MeshComp->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	MeshComp->SetSimulatePhysics(false);
 
 	if (HasAuthority())
 	{
@@ -292,10 +293,10 @@ void ASTrackerBot::OnCheckNearbyBots()
 	}
 	if (MatInst)
 	{
-		// Convert to a float between 0 and 1 just like an 'Alpha' value of a texture. Now the material can be set up without having to know the max power level 
+		// Convert to a float between 0 and 1 just like an 'Alpha' value of a texture. Now the material can be set up without having to know the max power level
 		// which can be tweaked many times by gameplay decisions (would mean we need to keep 2 places up to date)
 		float Alpha = PowerLevel / (float)MaxPowerLevel;
-		// Note: (float)MaxPowerLevel converts the int32 to a float, 
+		// Note: (float)MaxPowerLevel converts the int32 to a float,
 		//	otherwise the following happens when dealing when dividing integers: 1 / 4 = 0 ('PowerLevel' int / 'MaxPowerLevel' int = 0 int)
 		//	this is a common programming problem and can be fixed by 'casting' the int (MaxPowerLevel) to a float before dividing.
 
