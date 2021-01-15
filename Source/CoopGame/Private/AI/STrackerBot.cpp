@@ -3,14 +3,15 @@
 #include "STrackerBot.h"
 #include "Components/StaticMeshComponent.h"
 #include "Kismet/GameplayStatics.h"
-#include "AI/Navigation/NavigationSystem.h"
+#include "NavigationSystem.h"
+#include "NavigationPath.h"
 #include "GameFramework/Character.h"
-#include "AI/Navigation/NavigationPath.h"
 #include "DrawDebugHelpers.h"
 #include "SHealthComponent.h"
 #include "SCharacter.h"
 #include "Components/SphereComponent.h"
 #include "Sound/SoundCue.h"
+#include "EngineUtils.h"
 
 static int32 DebugTrackerBotDrawing = 0;
 FAutoConsoleVariableRef CVARDebugTrackerBotDrawing(
@@ -56,7 +57,7 @@ void ASTrackerBot::BeginPlay()
 {
 	Super::BeginPlay();
 
-	if (Role == ROLE_Authority)
+	if (HasAuthority())
 	{
 		// Find initial move-to
 		NextPathPoint = GetNextPathPoint();
@@ -93,9 +94,9 @@ FVector ASTrackerBot::GetNextPathPoint()
 	AActor* BestTarget = nullptr;
 	float NearestTargetDistance = FLT_MAX;
 
-	for (FConstPawnIterator It = GetWorld()->GetPawnIterator(); It; ++It)
+	for (TActorIterator<APawn> It(GetWorld()); It; ++It)
 	{
-		APawn* TestPawn = It->Get();
+		APawn* TestPawn = *It;
 		if (TestPawn == nullptr || USHealthComponent::IsFriendly(TestPawn, this))
 		{
 			continue;
@@ -116,7 +117,7 @@ FVector ASTrackerBot::GetNextPathPoint()
 
 	if (BestTarget)
 	{
-		UNavigationPath* NavPath = UNavigationSystem::FindPathToActorSynchronously(this, GetActorLocation(), BestTarget);
+		UNavigationPath* NavPath = UNavigationSystemV1::FindPathToActorSynchronously(this, GetActorLocation(), BestTarget);
 
 		GetWorldTimerManager().ClearTimer(TimerHandle_RefreshPath);
 		GetWorldTimerManager().SetTimer(TimerHandle_RefreshPath, this, &ASTrackerBot::RefreshPath , 5.0f, false);
@@ -149,7 +150,7 @@ void ASTrackerBot::SelfDestruct()
 	MeshComp->SetVisibility(false, true);
 	MeshComp->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 
-	if (Role == ROLE_Authority)
+	if (HasAuthority())
 	{
 		TArray<AActor*> IgnoredActors;
 		IgnoredActors.Add(this);
@@ -180,7 +181,7 @@ void ASTrackerBot::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	if (Role == ROLE_Authority && !bExploded)
+	if (HasAuthority() && !bExploded)
 	{
 		float DistanceToTarget = (GetActorLocation() - NextPathPoint).Size();
 
@@ -228,7 +229,7 @@ void ASTrackerBot::NotifyActorBeginOverlap(AActor* OtherActor)
 		{
 			// We overlapped with a player!
 
-			if (Role == ROLE_Authority)
+			if (HasAuthority())
 			{
 				// Start self destruction sequence
 				GetWorldTimerManager().SetTimer(TimerHandle_SelfDamage, this, &ASTrackerBot::DamageSelf, SelfDamageInterval, true, 0.0f);

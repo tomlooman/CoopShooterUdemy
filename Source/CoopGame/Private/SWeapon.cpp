@@ -51,7 +51,7 @@ void ASWeapon::Fire()
 {
 	// Trace the world, from pawn eyes to crosshair location
 
-	if (Role < ROLE_Authority)
+	if (!HasAuthority())
 	{
 		ServerFire();
 	}
@@ -111,7 +111,7 @@ void ASWeapon::Fire()
 
 		PlayFireEffects(TracerEndPoint);
 
-		if (Role == ROLE_Authority)
+		if (HasAuthority())
 		{
 			HitScanTrace.TraceTo = TracerEndPoint;
 			HitScanTrace.SurfaceType = SurfaceType;
