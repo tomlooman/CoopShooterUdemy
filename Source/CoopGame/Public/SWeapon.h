@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "Camera/CameraShake.h"
 #include "SWeapon.generated.h"
 
 class USkeletalMeshComponent;
@@ -68,7 +69,7 @@ protected:
 	UParticleSystem* TracerEffect;
 
 	UPROPERTY(EditDefaultsOnly, Category = "Weapon")
-	TSubclassOf<UCameraShake> FireCamShake;
+	TSubclassOf<UMatineeCameraShake> FireCamShake;
 
 	UPROPERTY(EditDefaultsOnly, Category = "Weapon")
 	float BaseDamage;
