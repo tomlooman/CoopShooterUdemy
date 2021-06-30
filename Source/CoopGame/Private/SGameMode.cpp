@@ -5,7 +5,7 @@
 #include "SGameState.h"
 #include "SPlayerState.h"
 #include "TimerManager.h"
-
+#include "EngineUtils.h"
 
 
 ASGameMode::ASGameMode()
@@ -61,9 +61,9 @@ void ASGameMode::CheckWaveState()
 
 	bool bIsAnyBotAlive = false;
 
-	for (FConstPawnIterator It = GetWorld()->GetPawnIterator(); It; ++It)
+	for (TActorIterator<APawn> It(GetWorld()); It; ++It)
 	{
-		APawn* TestPawn = It->Get();
+		APawn* TestPawn = *It;
 		if (TestPawn == nullptr || TestPawn->IsPlayerControlled())
 		{
 			continue;
